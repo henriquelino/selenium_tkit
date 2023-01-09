@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "selenium-tkit"
-version = "0.1.0"
+version = "0.1.0.1"
 description = "Another selenium toolkit"
 authors = ["henrique lino <henrique.lino97@gmail.com>"]
 readme = "README.md"
