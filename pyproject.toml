@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "selenium-tkit"
+version = "0.1.0"
+description = "Another selenium toolkit"
+authors = ["henrique lino <henrique.lino97@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+selenium = "^4.7.2"
+webdriver-manager = "^3.8.5"
+fake-useragent = "^1.1.1"
+undetected-chromedriver = "^3.1.7"
+psutil = "^5.9.4"
+retimer = "^0.1.0.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+coverage = "^6.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
