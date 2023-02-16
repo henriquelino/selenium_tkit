@@ -37,7 +37,8 @@ class ReusableChrome(CustomWebDriver):
         options: Optional[ChromeOptions] = None,
         attach_retries: int = 2,
         new_console: bool = True,
-        apply_patch: bool = True
+        apply_patch: bool = True,
+        **kwargs
     ) -> None:  # yapf: disable
         """Cria um chromedriver que pode ser reutilizado após encerramento do Python
 

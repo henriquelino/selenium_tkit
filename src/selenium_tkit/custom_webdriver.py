@@ -330,13 +330,13 @@ class CustomWebDriver(WebDriver):
                 raise
             
             if visibility:
-                logger.critical(f"Found element with condition: 'visibility_of'")
+                logger.debug(f"Found element with condition: 'visibility_of'")
                 r = visibility
             elif clickable:
-                logger.critical(f"Found element with condition: 'element_to_be_clickable'")
+                logger.debug(f"Found element with condition: 'element_to_be_clickable'")
                 r = clickable
             elif presence:
-                logger.critical(f"Found element with condition: 'presence_of_element_located'")
+                logger.debug(f"Found element with condition: 'presence_of_element_located'")
                 r = presence
             else:
                 continue
@@ -378,12 +378,12 @@ class CustomWebDriver(WebDriver):
         while timer.not_expired:
             try:
                 try:
-                    r = WebDriverWait(self, 1).until(EC.presence_of_all_elements_located((by, selector)))
+                    presence = WebDriverWait(self, 1).until(EC.presence_of_all_elements_located((by, selector)))
                 except (TimeoutException, WebDriverException, AttributeError):
                     presence = None
                     
                 try:
-                    r = WebDriverWait(self, 1).until(EC.visibility_of_all_elements_located((by, selector)))
+                    visibility = WebDriverWait(self, 1).until(EC.visibility_of_all_elements_located((by, selector)))
                 except (TimeoutException, WebDriverException, AttributeError):
                     visibility = None
             
@@ -393,10 +393,10 @@ class CustomWebDriver(WebDriver):
                 
             
             if visibility:
-                logger.critical(f"Found element with condition: 'visibility_of_all_elements_located'")
+                logger.debug(f"Found element with condition: 'visibility_of_all_elements_located'")
                 r = visibility
             elif presence:
-                logger.critical(f"Found element with condition: 'presence_of_all_elements_located'")
+                logger.debug(f"Found element with condition: 'presence_of_all_elements_located'")
                 r = presence
             else:
                 continue
@@ -404,7 +404,7 @@ class CustomWebDriver(WebDriver):
             return r
 
         if timer.expired:
-            logger.critical(f"Timeout após {timer.duration} segundos")
+            logger.debug(f"Timeout após {timer.duration} segundos")
             return False
 
     def click_element(
@@ -484,7 +484,7 @@ class CustomWebDriver(WebDriver):
             if ".click()" in kwargs["script"]:
                 # tira o .click do script, queremos o WebElement aqui
                 kwargs["script"] = kwargs["script"].replace(".click()", "")
-                logger.critical("Script had '.click()', removed it!")
+                logger.debug("Script had '.click()', removed it!")
 
             element = self.wait_execute_script(script=kwargs["script"], timeout=timeout, force_wait_webelement=True)
 
@@ -578,7 +578,7 @@ class CustomWebDriver(WebDriver):
                 continue
 
         if timer.expired:
-            logger.critical(f"Timeout after {timer.duration} seconds")
+            logger.debug(f"Timeout after {timer.duration} seconds")
             return False
 
     def find_and_fill_element(
@@ -646,7 +646,7 @@ class CustomWebDriver(WebDriver):
                 logger.debug(f"Element successfully filled with '{texto}'")
                 return True
             
-            logger.critical(f"Element have the value: attribute='{element.get_attribute('value')}'/text='{element.text}'")
+            logger.debug(f"Element have the value: attribute='{element.get_attribute('value')}'/text='{element.text}'")
 
             # fills the element
             self.fill_element(
@@ -661,7 +661,7 @@ class CustomWebDriver(WebDriver):
             continue
 
         if timer.expired:
-            logger.critical(f"Timeout after {timer.duration} seconds")
+            logger.debug(f"Timeout after {timer.duration} seconds")
             return False
 
     def get_download_all_progress(
@@ -689,7 +689,7 @@ class CustomWebDriver(WebDriver):
 
         r = self.open_url("chrome://downloads/", timeout=timeout)
         if r is False:
-            logger.critical(f"Não carregou a página de downloads a tempo")
+            logger.debug(f"Não carregou a página de downloads a tempo")
             return False
 
         progress = self.execute_script(
@@ -748,7 +748,7 @@ class CustomWebDriver(WebDriver):
                 return True
 
         if timer.expired:
-            logger.critical(f"Timeout após {timer.duration} segundos")
+            logger.debug(f"Timeout após {timer.duration} segundos")
             self.open_url(url_before)
             return False
 
