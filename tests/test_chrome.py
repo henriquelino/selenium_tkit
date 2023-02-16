@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 
 import pytest
-from src.py_selenium_ext.chrome import CreateChrome, ReusableChrome
+from src.selenium_tkit.chrome import CreateChrome, ReusableChrome
 
 BASE_DIR = Path(__file__).parent.resolve()
 WEBDRIVER_PATH = BASE_DIR / "webdriver"
