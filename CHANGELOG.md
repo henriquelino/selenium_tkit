@@ -1,4 +1,10 @@
 
+# v0.1.0.3 -- 2023-08-03
+
+## Changed
+
+- Added webdriver_manager 4.0.0 support for chrome
+
 # v0.1.0.2 -- 2023-02-16
 
 ## Changed
