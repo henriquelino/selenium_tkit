@@ -17,6 +17,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from undetected_chromedriver.patcher import Patcher
 from urllib3.exceptions import MaxRetryError
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.driver_cache import DriverCacheManager
 
 from .custom_webdriver import CustomWebDriver
 
@@ -81,7 +82,8 @@ class ReusableChrome(CustomWebDriver):
 
         if isinstance(driver_path, Path):
             driver_path = str(driver_path)
-        self.driver_path = ChromeDriverManager(path=driver_path).install()
+            cache = DriverCacheManager(driver_path)
+        self.driver_path = ChromeDriverManager(cache_manager=cache).install()
 
         if apply_patch:
             patcher = Patcher(executable_path=self.driver_path, force=False)
@@ -314,7 +316,8 @@ class CreateChrome(CustomWebDriver, Chrome):
 
         if isinstance(driver_path, Path):
             driver_path = str(driver_path)
-        self.driver_path = ChromeDriverManager(path=driver_path).install()
+            cache = DriverCacheManager(driver_path)
+        self.driver_path = ChromeDriverManager(cache_manager=cache).install()
 
         self.implicity_wait = implicity_wait
         self.port = port
